@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.high_tech_shop.MainActivity;
 import com.example.high_tech_shop.R;
+import com.example.high_tech_shop.admin.AdminHomeActivity;
 import com.example.high_tech_shop.common.DataCommon;
 import com.example.high_tech_shop.dao.UserDAO;
 import com.example.high_tech_shop.entity.Role;
@@ -53,6 +54,11 @@ public class UserLoginFormActivity extends AppCompatActivity{
                     }else if(user.getRole() == Role.USER){
                         Intent intent = new Intent(UserLoginFormActivity.this, HomePageActivity.class);
                         intent.putExtra("user", (Serializable) user);
+                        startActivity(intent);
+                    }
+                    else if(user.getRole() == Role.ADMIN){
+                        Intent intent = new Intent(UserLoginFormActivity.this, AdminHomeActivity.class);
+                        intent.putExtra("admin", (Serializable) user);
                         startActivity(intent);
                     }
                 }

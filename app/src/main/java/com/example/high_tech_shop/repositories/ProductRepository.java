@@ -29,4 +29,10 @@ public class ProductRepository {
     public List<Product> getProductsByCategoryId(int categoryId){
         return productDAO.getProductsByCategoryId(categoryId);
     }
+    public Product getProductById(int id){
+        return productDAO.get(id);
+    }
+    public void update(List<Product> products) {
+        productDAO.update(products);
+    }
 }

@@ -43,9 +43,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     val room_version = "2.6.1"
-    implementation ("com.github.momo-wallet:mobile-sdk:1.0.7") {
-        exclude( group = "com.android.support", module = "support-compat")
-    }
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("com.google.android.material:material:1.12.0")
@@ -58,7 +55,12 @@ dependencies {
     implementation("com.github.dangiashish:Google-Direction-Api:1.4") {
         exclude( group = "com.android.support", module = "support-compat")
     }
+    implementation ("com.github.momo-wallet:mobile-sdk:1.0.7") {
+        exclude( group = "com.android.support", module = "support-compat")
+    }
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.google.android.libraries.places:places:3.5.0")
+    implementation ("androidx.appcompat:appcompat:1.3.1")
+    implementation ("androidx.core:core-ktx:1.6.0")
 }
 

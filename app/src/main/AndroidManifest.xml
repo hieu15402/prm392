@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        tools:targetApi="31">
+        <activity
+
+            android:name=".user.OrderActivity"
+            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".user.UpdateProfileUser"-->
+<!--            android:exported="false" />-->
+        <activity
+            android:name=".user.LoadAddressAPIActivity"
+            android:exported="false" />
+
+        <activity android:name=".user.SelectAddressActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.AddAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.AddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.FilterProductActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".user.CartItemActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".user.PopularItemActivity" -->
+        <!-- android:exported="false" /> -->
+        <activity
+            android:name=".user.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.UserLoginFormActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".admin.TechActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.HomePageActivity"
+            android:exported="true" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBdVynA4ikE3mLBYe6JzEJohPZ_5Iy-aXI"/>
+    </application>
+
+</manifest>

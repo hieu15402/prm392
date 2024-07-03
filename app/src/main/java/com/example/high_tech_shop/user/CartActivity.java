@@ -404,12 +404,6 @@ public class CartActivity extends AppCompatActivity {
         paymentRepository.insertPayment(payments);
         Log.d("Thanh toán", "Đặt hàng thành công");
         requestPayment(order.getId());
-        recyclerView.removeAllViews();
-        Intent intent = new Intent(CartActivity.this, HomePageActivity.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-
     }
     //Get token through MoMo app
     private void requestPayment(int orderId) {
@@ -451,7 +445,6 @@ public class CartActivity extends AppCompatActivity {
         eventValue.put("extra", "");
         AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
     }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
@@ -465,8 +458,12 @@ public class CartActivity extends AppCompatActivity {
                     if(env == null){
                         env = "app";
                     }
-
                     if(token != null && !token.equals("")) {
+                        recyclerView.removeAllViews();
+                        Intent intent = new Intent(CartActivity.this, HomePageActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                        finish();
                         Toast.makeText(CartActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d("requestPayment","message: not_receive_info" );

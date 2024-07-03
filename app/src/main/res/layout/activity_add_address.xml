@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:background="#f5f5f5"
-    android:orientation="vertical"
-    tools:context=".user.AddressActivity"
-    tools:scrollbarSize="20dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:background="#f5f5f5"
-            app:srcCompat="@drawable/arrow_right_address" />
+            android:src="@drawable/arrow_right_address" />
     </LinearLayout>
 
     <EditText
@@ -90,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Set default address"
-        tools:textSize="20dp" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btnComplete"
@@ -105,6 +98,4 @@
         android:layout_height="wrap_content"
         android:text="Delete"
         android:visibility="invisible" />
-
-
 </LinearLayout>

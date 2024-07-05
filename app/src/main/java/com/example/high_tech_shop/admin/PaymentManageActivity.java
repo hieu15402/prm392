@@ -61,13 +61,28 @@ public class PaymentManageActivity extends AppCompatActivity {
     }
 
     public void handleVerifyPayment(Payment payment) {
-        payment.setStatus("Verified");
-        new UpdatePaymentTask().execute(payment);
-        Toast.makeText(this, "Payment verified: " + payment.getId(), Toast.LENGTH_SHORT).show();
+        showVerifyConfirmationDialog(payment);
     }
 
     public void handleRefundPayment(Payment payment) {
         showRefundConfirmationDialog(payment);
+    }
+
+    private void showVerifyConfirmationDialog(Payment payment) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Verification");
+        builder.setMessage("Are you sure you want to set this payment to Processing?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                payment.setStatus("Processing");
+                new UpdatePaymentTask().execute(payment);
+                Toast.makeText(PaymentManageActivity.this, "Payment status set to Processing: " + payment.getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void showRefundConfirmationDialog(Payment payment) {
@@ -79,7 +94,7 @@ public class PaymentManageActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 payment.setStatus("Refunded");
                 new UpdatePaymentTask().execute(payment);
-                Toast.makeText(PaymentManageActivity.this, "Payment refunded: " + payment.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentManageActivity.this, "Payment status set to Refunded: " + payment.getId(), Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("No", null);

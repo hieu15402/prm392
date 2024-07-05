@@ -1,5 +1,6 @@
 package com.example.high_tech_shop.admin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,7 +37,7 @@ public class PaymentManageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new PaymentAdapter();
+        adapter = new PaymentAdapter(this);
         recyclerView.setAdapter(adapter);
 
         loadPayments();
@@ -59,17 +61,43 @@ public class PaymentManageActivity extends AppCompatActivity {
     }
 
     public void handleVerifyPayment(Payment payment) {
-        // Implement verification logic
+        payment.setStatus("Verified");
+        new UpdatePaymentTask().execute(payment);
         Toast.makeText(this, "Payment verified: " + payment.getId(), Toast.LENGTH_SHORT).show();
     }
 
-    public void handleProcessRefund(Payment payment) {
-        // Implement refund processing logic
-        Toast.makeText(this, "Refund processed: " + payment.getId(), Toast.LENGTH_SHORT).show();
+    public void handleRefundPayment(Payment payment) {
+        showRefundConfirmationDialog(payment);
     }
 
-    public void handlePaymentIssue(Payment payment) {
-        // Implement payment issue handling logic
-        Toast.makeText(this, "Payment issue resolved: " + payment.getId(), Toast.LENGTH_SHORT).show();
+    private void showRefundConfirmationDialog(Payment payment) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Refund");
+        builder.setMessage("Are you sure you want to refund this payment?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                payment.setStatus("Refunded");
+                new UpdatePaymentTask().execute(payment);
+                Toast.makeText(PaymentManageActivity.this, "Payment refunded: " + payment.getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private class UpdatePaymentTask extends AsyncTask<Payment, Void, Void> {
+        @Override
+        protected Void doInBackground(Payment... payments) {
+            paymentRepository.updatePayment(payments[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            loadPayments();
+        }
     }
 }

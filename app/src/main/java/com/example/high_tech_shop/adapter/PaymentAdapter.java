@@ -20,7 +20,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentH
     private List<Payment> payments = new ArrayList<>();
     private PaymentManageActivity activity;
 
-    public PaymentAdapter() {
+    public PaymentAdapter(PaymentManageActivity activity) {
         this.activity = activity;
     }
 
@@ -35,12 +35,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentH
     @Override
     public void onBindViewHolder(@NonNull PaymentHolder holder, int position) {
         Payment currentPayment = payments.get(position);
-        holder.textViewOrderId.setText(String.valueOf(currentPayment.getOrderId()));
-        holder.textViewType.setText(currentPayment.getType());
-        holder.textViewTotalPrice.setText(String.valueOf(currentPayment.getTotalPrice()));
+        holder.textViewPaymentId.setText("Payment ID: " + currentPayment.getId());
+        holder.textViewType.setText("Type: " + currentPayment.getType());
+        holder.textViewTotalPrice.setText("Total Price: " + currentPayment.getTotalPrice());
+        holder.textViewStatus.setText("Status: " + currentPayment.getStatus());
+
         holder.buttonVerify.setOnClickListener(v -> activity.handleVerifyPayment(currentPayment));
-        holder.buttonRefund.setOnClickListener(v -> activity.handleProcessRefund(currentPayment));
-        holder.buttonIssue.setOnClickListener(v -> activity.handlePaymentIssue(currentPayment));
+        holder.buttonRefund.setOnClickListener(v -> activity.handleRefundPayment(currentPayment));
     }
 
     @Override
@@ -54,21 +55,21 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentH
     }
 
     class PaymentHolder extends RecyclerView.ViewHolder {
-        private TextView textViewOrderId;
+        private TextView textViewPaymentId;
         private TextView textViewType;
         private TextView textViewTotalPrice;
+        private TextView textViewStatus;
         private Button buttonVerify;
         private Button buttonRefund;
-        private Button buttonIssue;
 
         public PaymentHolder(@NonNull View itemView) {
             super(itemView);
-            textViewOrderId = itemView.findViewById(R.id.text_view_order_id);
+            textViewPaymentId = itemView.findViewById(R.id.text_view_payment_id);
             textViewType = itemView.findViewById(R.id.text_view_type);
             textViewTotalPrice = itemView.findViewById(R.id.text_view_total_price);
-            buttonVerify = itemView.findViewById(R.id.button_verify);
-            buttonRefund = itemView.findViewById(R.id.button_refund);
-            buttonIssue = itemView.findViewById(R.id.button_issue);
+            textViewStatus = itemView.findViewById(R.id.text_view_status);
+            buttonVerify = itemView.findViewById(R.id.button_verify_payment);
+            buttonRefund = itemView.findViewById(R.id.button_refund_payment);
         }
     }
 }

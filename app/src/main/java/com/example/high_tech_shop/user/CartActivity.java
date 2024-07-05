@@ -366,7 +366,8 @@ public class CartActivity extends AppCompatActivity {
                 paymentRepository.getAllPayments().size() + 1,
                 "COD",
                 Double.parseDouble(total),
-                order.getId()
+                order.getId(),
+                "Pending"
         );
         payments.add(payment);
         paymentRepository.insertPayment(payments);
@@ -423,7 +424,8 @@ public class CartActivity extends AppCompatActivity {
                 paymentRepository.getAllPayments().size() + 1,
                 "Momo",
                 Double.parseDouble(total),
-                order.getId()
+                order.getId(),
+                "Pending"
         );
         payments.add(payment);
         paymentRepository.insertPayment(payments);

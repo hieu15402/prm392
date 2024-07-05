@@ -13,7 +13,7 @@ import com.example.high_tech_shop.common.Converters;
 import com.example.high_tech_shop.dao.*;
 import com.example.high_tech_shop.entity.*;
 
-@Database(entities = {Cart.class, Product.class, User.class, Order.class, OrderItem.class, Category.class, CartItem.class, ProductSubImage.class, UserAddress.class, Payment.class}, version = 2)
+@Database(entities = {Cart.class, Product.class, User.class, Order.class, OrderItem.class, Category.class, CartItem.class, ProductSubImage.class, UserAddress.class, Payment.class}, version = 3)
 @TypeConverters({Converters.class})
 public abstract class HighTechShopRoomDatabase extends RoomDatabase {
 

@@ -11,12 +11,14 @@ public class Payment {
     private String type;
     private double totalPrice;
     private int orderId;
+    private String status;
 
-    public Payment(int id, String type, double totalPrice, int orderId) {
+    public Payment(int id, String type, double totalPrice, int orderId, String status) {
         this.id = id;
         this.type = type;
         this.totalPrice = totalPrice;
         this.orderId = orderId;
+        this.status = status;
     }
 
     public int getId() {
@@ -49,6 +51,14 @@ public class Payment {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 

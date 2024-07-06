@@ -90,6 +90,7 @@ public class CartActivity extends AppCompatActivity {
     private Button orderButton;
     String province, district, ward, address;
     private double shipPrice = 0;
+    private int paymentId = 0;
 
     //Momo
     private String amount = "10000";
@@ -428,6 +429,7 @@ public class CartActivity extends AppCompatActivity {
                 "Pending"
         );
         payments.add(payment);
+        paymentId = payment.getId();
         paymentRepository.insertPayment(payments);
         List<Product> products = new ArrayList<>();
         for (CartItem productBuy : tmp) {
@@ -495,6 +497,10 @@ public class CartActivity extends AppCompatActivity {
                     }
                     if(token != null && !token.equals("")) {
                         recyclerView.removeAllViews();
+                        Payment payment = paymentRepository.getPaymentById(paymentId);
+                        payment.setStatus("Success");
+                        paymentRepository.updatePayment(payment);
+                        Log.d("requestPayment","message: " + "Thanh toán thành công");
                         sendMessage("Thanh toán thành công");
                         Intent intent = new Intent(CartActivity.this, HomePageActivity.class);
                         intent.putExtra("user", user);

@@ -23,4 +23,7 @@ public class PaymentRepository {
     public void updatePayment(Payment payment) {
          paymentDAO.updatePayment(payment);
     }
+    public Payment getPaymentById(int id) {
+        return paymentDAO.getPayment(id);
+    }
 }

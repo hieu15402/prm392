@@ -16,4 +16,5 @@ public class TechActivity extends AppCompatActivity {
     private TextView clothingName, elecName, homeName, beautyName, pharmName, grocName;
     private ImageView clothingImage, elecImage, homeImage, beautyImage, pharmImage, grocImage;
 
+
 }

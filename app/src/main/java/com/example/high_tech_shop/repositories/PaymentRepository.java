@@ -19,4 +19,8 @@ public class PaymentRepository {
     public List<Payment> getAllPayments() {
         return paymentDAO.getAllPayments();
     }
+
+    public void updatePayment(Payment payment) {
+         paymentDAO.updatePayment(payment);
+    }
 }

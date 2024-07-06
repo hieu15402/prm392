@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">high_tech_shop</string>
+    <!-- other strings -->
+    <string-array name="order_status_array">
+        <item>Pending</item>
+        <item>Processing</item>
+        <item>Shipped</item>
+        <item>Delivered</item>
+        <item>Cancelled</item>
+        <item>Refunded</item>
+    </string-array>
 </resources>

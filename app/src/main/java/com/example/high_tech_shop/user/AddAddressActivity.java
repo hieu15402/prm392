@@ -36,7 +36,6 @@ public class AddAddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_address);
 
         text_location = findViewById(R.id.text_location);

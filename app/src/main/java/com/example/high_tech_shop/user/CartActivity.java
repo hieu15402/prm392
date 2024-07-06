@@ -1,10 +1,17 @@
 package com.example.high_tech_shop.user;
 
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static java.lang.Math.round;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -16,8 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -31,13 +42,16 @@ import com.example.high_tech_shop.entity.CartItem;
 import com.example.high_tech_shop.entity.Order;
 import com.example.high_tech_shop.entity.OrderItem;
 import com.example.high_tech_shop.entity.Payment;
+import com.example.high_tech_shop.entity.Product;
 import com.example.high_tech_shop.entity.User;
 import com.example.high_tech_shop.entity.UserAddress;
+import com.example.high_tech_shop.helper.NotificationPermissionHelper;
 import com.example.high_tech_shop.repositories.CartItemRepository;
 import com.example.high_tech_shop.repositories.CartRepository;
 import com.example.high_tech_shop.repositories.OrderItemRepository;
 import com.example.high_tech_shop.repositories.OrderRepository;
 import com.example.high_tech_shop.repositories.PaymentRepository;
+import com.example.high_tech_shop.repositories.ProductRepository;
 import com.example.high_tech_shop.repositories.UserAddressRepository;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -46,6 +60,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -68,6 +83,7 @@ public class CartActivity extends AppCompatActivity {
     private OrderRepository orderRepository;
     private OrderItemRepository orderItemRepository;
     private PaymentRepository paymentRepository;
+    private ProductRepository productRepository;
     private ImageView ivViewAddress,ivSelectPayment;
     private List<CartItem> tmp;
     ImageView backBtn;
@@ -102,6 +118,7 @@ public class CartActivity extends AppCompatActivity {
         orderRepository = new OrderRepository(this);
         orderItemRepository = new OrderItemRepository(this);
         paymentRepository = new PaymentRepository(this);
+        productRepository = new ProductRepository(this);
 
         user = (User) getIntent().getSerializableExtra("user");
         if(user == null) finish();
@@ -315,7 +332,7 @@ public class CartActivity extends AppCompatActivity {
         Order order = new Order(
                 orderRepository.getAll().size() + 1,
                 Double.parseDouble(total),
-                "Đặt hàng thành công",
+                "Order Success",
                 null,
                 null,
                 province,
@@ -349,11 +366,20 @@ public class CartActivity extends AppCompatActivity {
                 paymentRepository.getAllPayments().size() + 1,
                 "COD",
                 Double.parseDouble(total),
-                order.getId()
+                order.getId(),
+                "Pending"
         );
         payments.add(payment);
         paymentRepository.insertPayment(payments);
+        List<Product> products = new ArrayList<>();
+        for (CartItem productBuy : tmp) {
+            Product product = productRepository.getProductById(productBuy.getProductId());
+            product.setUnitInStock(product.getUnitInStock() - productBuy.getQuantity());
+            products.add(product);
+        }
+        productRepository.update(products);
         Log.d("Thanh toán", "Đặt hàng thành công");
+        sendMessage("Đặt hàng thành công");
         Intent intent = new Intent(CartActivity.this, HomePageActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
@@ -364,7 +390,7 @@ public class CartActivity extends AppCompatActivity {
         Order order = new Order(
                 orderRepository.getAll().size() + 1,
                 Double.parseDouble(total),
-                "Đặt hàng thành công",
+                "Order Success",
                 null,
                 null,
                 province,
@@ -398,18 +424,21 @@ public class CartActivity extends AppCompatActivity {
                 paymentRepository.getAllPayments().size() + 1,
                 "Momo",
                 Double.parseDouble(total),
-                order.getId()
+                order.getId(),
+                "Pending"
         );
         payments.add(payment);
         paymentRepository.insertPayment(payments);
+        List<Product> products = new ArrayList<>();
+        for (CartItem productBuy : tmp) {
+            Product product = productRepository.getProductById(productBuy.getProductId());
+            product.setUnitInStock(product.getUnitInStock() - productBuy.getQuantity());
+            products.add(product);
+        }
+        productRepository.update(products);
         Log.d("Thanh toán", "Đặt hàng thành công");
+        sendMessage("Đặt hàng thành công");
         requestPayment(order.getId());
-        recyclerView.removeAllViews();
-        Intent intent = new Intent(CartActivity.this, HomePageActivity.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-
     }
     //Get token through MoMo app
     private void requestPayment(int orderId) {
@@ -451,7 +480,6 @@ public class CartActivity extends AppCompatActivity {
         eventValue.put("extra", "");
         AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
     }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
@@ -465,8 +493,13 @@ public class CartActivity extends AppCompatActivity {
                     if(env == null){
                         env = "app";
                     }
-
                     if(token != null && !token.equals("")) {
+                        recyclerView.removeAllViews();
+                        sendMessage("Thanh toán thành công");
+                        Intent intent = new Intent(CartActivity.this, HomePageActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                        finish();
                         Toast.makeText(CartActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d("requestPayment","message: not_receive_info" );
@@ -489,5 +522,41 @@ public class CartActivity extends AppCompatActivity {
             Log.d("requestPayment","message: not_receive_info_err" );
         }
     }
+    private void sendMessage(String message) {
 
+        String channelId = "your_channel_id";
+        CharSequence channelName = "Channel Name";
+        String channelDescription = "Channel Description";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+        channel.setDescription(channelDescription);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
+        Notification notification = new Notification.Builder(this, "your_channel_id")
+                .setContentTitle("Notification")
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_notification_custom)
+                .setLargeIcon(bitmap)
+                .setColor(ContextCompat.getColor(this, R.color.red))
+                .build();
+
+        NotificationManagerCompat compat = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
+            return;
+        }
+        compat.notify(getNotificationId(), notification);
+
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        NotificationPermissionHelper.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    private int getNotificationId() {
+        return (int) new Date().getTime();
+    }
 }

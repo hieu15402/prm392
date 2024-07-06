@@ -24,4 +24,8 @@ public class OrderRepository {
         public Order getOrderById(int id) {
             return orderDAO.getOrderById(id);
         }
+
+    public void updateOrder(Order order) {
+        orderDAO.updateOrder(order);
+    }
 }

@@ -7,8 +7,7 @@
     android:layout_height="240dp"
     android:background="@drawable/grey_background"
     android:elevation="3dp"
-    android:layout_margin="8dp"
-    >
+    android:layout_margin="8dp">
 
     <ImageView
         android:id="@+id/pic"
@@ -49,7 +48,7 @@
     <View
         android:id="@+id/view3"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="90dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,18 +60,31 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:textColor="@color/black"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view3" />
+
+    <TextView
+        android:id="@+id/unitInStockTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Unit in Stock"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTxt" />
 
     <TextView
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="$500"
         android:textColor="@color/red"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/titleTxt" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unitInStockTxt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,18 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".admin.ProductManageActivity">
 
-    <!-- Add your UI components here to manage products -->
-
-    <TextView
+    <Button
+        android:id="@+id/btnAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Product Management"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:layout_gravity="center" />
-</LinearLayout>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_background"
+        android:text="Add Product"
+        android:textColor="@android:color/white"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAddProduct"
+        android:layout_marginBottom="8dp"
+        android:queryHint="Search by Category ID" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/searchView"
+        android:layout_above="@id/btnLayout"
+        android:layout_marginBottom="8dp"
+        android:paddingHorizontal="70dp"
+        android:scrollbars="vertical" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchView"
+        android:layout_above="@id/btnLayout"
+        android:visibility="gone"
+        tools:ignore="NotSibling">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Name"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Description"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Price"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/etUnitInStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Unit in Stock"
+                android:inputType="number"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/etCategoryId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Category ID"
+                android:inputType="number"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <ImageView
+                android:id="@+id/ivCoverImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_adding"
+                android:background="@drawable/imageview_background" />
+
+            <Button
+                android:id="@+id/btnSelectImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/button_background"
+                android:text="Select Image"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/button_background"
+                android:text="Save"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:text="Cancel"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/button_background"
+                android:text="Delete"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:elevation="4dp">
+
+        <Button
+            android:id="@+id/btnPreviousPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="Previous"
+            android:textColor="@android:color/white"
+            android:paddingVertical="12dp" />
+
+        <Button
+            android:id="@+id/btnNextPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:text="Next"
+            android:textColor="@android:color/white"
+            android:paddingVertical="12dp" />
+    </LinearLayout>
+</RelativeLayout>

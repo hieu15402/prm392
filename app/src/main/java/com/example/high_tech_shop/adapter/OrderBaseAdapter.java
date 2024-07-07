@@ -18,6 +18,7 @@ import com.example.high_tech_shop.entity.Product;
 import com.example.high_tech_shop.repositories.OrderItemRepository;
 import com.example.high_tech_shop.repositories.OrderRepository;
 import com.example.high_tech_shop.repositories.ProductRepository;
+import com.example.high_tech_shop.shipper.ShipperHomeFragment;
 
 import java.util.List;
 
@@ -28,13 +29,16 @@ public class OrderBaseAdapter extends BaseAdapter {
     private OrderItemRepository orderItemRepository;
     private ProductRepository productRepository;
     private OrderRepository orderRepository;
-    public OrderBaseAdapter(Context context, List<Order> orderList, OrderItemRepository orderItemRepository, ProductRepository productRepository, OrderRepository orderRepository) {
+    private ShipperHomeFragment fragment;
+
+    public OrderBaseAdapter(Context context, List<Order> orderList, OrderItemRepository orderItemRepository, ProductRepository productRepository, OrderRepository orderRepository, ShipperHomeFragment fragment) {
         this.context = context;
         this.orderList = orderList;
         this.inflater = LayoutInflater.from(context);
         this.orderItemRepository = orderItemRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
+        this.fragment = fragment;
     }
 
     @Override
@@ -77,30 +81,28 @@ public class OrderBaseAdapter extends BaseAdapter {
         OrderItem orderItem = orderItemRepository.getOrderItemByOrderId(order.getId());
         Product product = productRepository.getProductById(orderItem.getProductId());
         Log.d("orderTest", order.toString());
-        // Tạm thời sử dụng dữ liệu tĩnh để kiểm tra hiển thị
-        holder.tvOrderId.setText("ID: " + order.getId());
-        holder.tvProductName.setText(product.getName()); // Dữ liệu tĩnh cho tên sản phẩm
-        holder.tvOrderDate.setText(order.getDistrict()); // Dữ liệu tĩnh cho ngày đặt hàng
-        holder.tvOrderStatus.setText(order.getStatus()); // Dữ liệu tĩnh cho trạng thái đơn hàng
-        holder.tvCustomerName.setText(order.getNameCustomer()); // Dữ liệu tĩnh cho tên khách hàng
-        holder.tvOrderPrice.setText(String.valueOf(orderItem.getPrice()));  // Dữ liệu tĩnh cho giá đơn hàng
 
-        // Xử lý sự kiện nhấn nút mở rộng
+        holder.tvOrderId.setText("ID: " + order.getId());
+        holder.tvProductName.setText(product.getName());
+        holder.tvOrderDate.setText(order.getDistrict());
+        holder.tvOrderStatus.setText(order.getStatus());
+        holder.tvCustomerName.setText(order.getNameCustomer());
+        holder.tvOrderPrice.setText(String.valueOf(orderItem.getPrice()));
+
         holder.btnExpand.setOnClickListener(v -> {
             if (holder.layoutExpanded.getVisibility() == View.GONE) {
                 holder.layoutExpanded.setVisibility(View.VISIBLE);
-                holder.btnExpand.setImageResource(R.drawable.ic_minus_sign); // Đổi icon thành thu gọn
+                holder.btnExpand.setImageResource(R.drawable.ic_minus_sign);
             } else {
                 holder.layoutExpanded.setVisibility(View.GONE);
-                holder.btnExpand.setImageResource(R.drawable.ic_plus_sign); // Đổi icon thành mở rộng
+                holder.btnExpand.setImageResource(R.drawable.ic_plus_sign);
             }
         });
 
-        // Xử lý sự kiện nhấn nút "Mark as shipped"
         holder.btnMarkAsShipped.setOnClickListener(v -> {
-            // Cập nhật trạng thái đơn hàng và các hành động khác nếu cần
             order.setStatus("Delivered");
             orderRepository.updateOrder(order);
+            fragment.updateOrderList(orderRepository.getOrdersByStatus("Processing"));
         });
 
         return convertView;
@@ -111,5 +113,10 @@ public class OrderBaseAdapter extends BaseAdapter {
         ImageView imgProduct, btnExpand;
         LinearLayout layoutExpanded;
         Button btnMarkAsShipped;
+    }
+
+    public void updateOrderList(List<Order> updatedOrders) {
+        this.orderList = updatedOrders;
+        notifyDataSetChanged();
     }
 }

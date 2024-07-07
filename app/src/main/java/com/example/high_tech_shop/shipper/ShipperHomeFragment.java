@@ -29,6 +29,7 @@ public class ShipperHomeFragment extends Fragment {
     private OrderRepository orderRepository;
     private OrderItemRepository orderItemRepository;
     private ProductRepository productRepository;
+    private OrderBaseAdapter adapter;
 
     public ShipperHomeFragment() {
         // Required empty public constructor
@@ -69,9 +70,14 @@ public class ShipperHomeFragment extends Fragment {
 
         // Setup ListView
         ListView listView = view.findViewById(R.id.list_view_orders);
-        OrderBaseAdapter adapter = new OrderBaseAdapter(getContext(), orders, orderItemRepository, productRepository,orderRepository);
+        adapter = new OrderBaseAdapter(getContext(), orders, orderItemRepository, productRepository, orderRepository, this);
         listView.setAdapter(adapter);
 
         return view;
+    }
+
+    public void updateOrderList(List<Order> updatedOrders) {
+        this.orders = updatedOrders;
+        adapter.updateOrderList(updatedOrders);
     }
 }

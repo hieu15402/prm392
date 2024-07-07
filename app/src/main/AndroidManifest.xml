@@ -81,7 +81,14 @@
             android:exported="false" />
         <activity
             android:name=".admin.AdminHomeActivity"
-            android:exported="false"/>
+
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
 
         <activity
             android:name=".shipper.ShipperMainActivity"
@@ -89,6 +96,7 @@
         <activity
             android:name=".shipper.ItemOrderActivity"
             android:exported="false"/>
+
 
         <activity
             android:name=".admin.TechActivity"
@@ -107,7 +115,8 @@
             android:exported="false" />
         <activity
             android:name=".admin.PaymentManageActivity"
-            android:exported="false" />
+            android:exported="true">
+        </activity>
         <activity
             android:name=".admin.ProductManageActivity"
             android:exported="true" />

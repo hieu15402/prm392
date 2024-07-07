@@ -24,4 +24,8 @@ public class OrderItemRepository {
         return orderItemDAO.getAllOrderItems();
     }
 
+    public OrderItem getOrderItemByOrderId(Integer orderId) {
+        return orderItemDAO.getOrderItemByOrderId(orderId);
+    }
+
 }

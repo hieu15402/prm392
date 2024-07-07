@@ -41,17 +41,17 @@ public class ShipperMainActivity extends AppCompatActivity {
         // Init repo
         orderRepository = new OrderRepository(this);
 
-        List<Order> orderList = new ArrayList<>();
-//        List<Order> orderList = orderRepository.getOrdersByStatus("");
+
+        orders = orderRepository.getOrdersByStatus("Processing");
 
         // Creating 5 orders
-        orderList.add(new Order(1, 200.0, "Pending", "Minh", "123456789", "Hanoi", "Ba Dinh", "123 Street", "minh@example.com", "Please deliver fast", 1, 1));
-        orderList.add(new Order(2, 150.0, "Shipped", "Nam", "987654321", "Hanoi", "Hoan Kiem", "456 Street", "nam@example.com", "Leave at door", 2, 2));
-        orderList.add(new Order(3, 300.0, "Delivered", "Hoa", "555666777", "HCM City", "District 1", "789 Street", "hoa@example.com", "Call before delivery", 3, 3));
-        orderList.add(new Order(4, 250.0, "Canceled", "Lan", "222333444", "Da Nang", "Hai Chau", "101 Street", "lan@example.com", "Refund request", 4, 4));
-        orderList.add(new Order(5, 100.0, "Pending", "Huy", "111222333", "Hue", "Phu Nhuan", "202 Street", "huy@example.com", "Deliver in morning", 5, 5));
-
-        orders = orderList;
+//        orderList.add(new Order(1, 200.0, "Pending", "Minh", "123456789", "Hanoi", "Ba Dinh", "123 Street", "minh@example.com", "Please deliver fast", 1, 1));
+//        orderList.add(new Order(2, 150.0, "Shipped", "Nam", "987654321", "Hanoi", "Hoan Kiem", "456 Street", "nam@example.com", "Leave at door", 2, 2));
+//        orderList.add(new Order(3, 300.0, "Delivered", "Hoa", "555666777", "HCM City", "District 1", "789 Street", "hoa@example.com", "Call before delivery", 3, 3));
+//        orderList.add(new Order(4, 250.0, "Canceled", "Lan", "222333444", "Da Nang", "Hai Chau", "101 Street", "lan@example.com", "Refund request", 4, 4));
+//        orderList.add(new Order(5, 100.0, "Pending", "Huy", "111222333", "Hue", "Phu Nhuan", "202 Street", "huy@example.com", "Deliver in morning", 5, 5));
+//
+//        orders = orderList;
 
         // Set default fragment
         if (savedInstanceState == null) {

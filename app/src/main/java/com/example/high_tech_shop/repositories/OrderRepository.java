@@ -28,4 +28,8 @@ public class OrderRepository {
     public void updateOrder(Order order) {
         orderDAO.updateOrder(order);
     }
+
+    public List<Order> getOrdersByStatus(String status) {
+        return orderDAO.getOrdersByStatus(status);
+    }
 }

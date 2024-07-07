@@ -2,9 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+
 android {
     namespace = "com.example.high_tech_shop"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.high_tech_shop"
@@ -13,8 +15,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -31,7 +35,9 @@ android {
     }
 }
 
+
 dependencies {
+
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -41,6 +47,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
@@ -61,12 +68,18 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.google.android.libraries.places:places:3.5.0")
 
+
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
+
     implementation ("androidx.appcompat:appcompat:1.3.1")
     implementation ("androidx.core:core-ktx:1.6.0")
 }
+
+
+
 

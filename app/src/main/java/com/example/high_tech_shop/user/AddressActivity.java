@@ -41,6 +41,7 @@ public class AddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_address);
 
         rvAddress = findViewById(R.id.rvAddress);
@@ -70,13 +71,11 @@ public class AddressActivity extends AppCompatActivity {
             adapterDefault = new AddressDefaultAdapter(AddressActivity.this, addressDefault);
             rvAddress.setAdapter(adapter);
             rvAddressDefault.setAdapter(adapterDefault);
-
         }
         if (addressDefault != null && userAddressList.isEmpty()) {
             adapterDefault = new AddressDefaultAdapter(AddressActivity.this, addressDefault);
             rvAddressDefault.setAdapter(adapterDefault);
         }
-
 
         ivAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override

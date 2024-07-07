@@ -36,12 +36,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     CartItemRepository cartItemRepository;
     CartRepository cartRepository;
     Cart cart;
-    double shipPrice;
-    public CartAdapter(List<CartItem> cartItems, Context context, Cart cart, double shipPrice) {
+    public CartAdapter(List<CartItem> cartItems, Context context, Cart cart) {
         this.cartItems = cartItems;
         this.context = context;
         this.cart = cart;
-        this.shipPrice = shipPrice;
     }
 
     @NonNull
@@ -52,8 +50,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         productRepository = new ProductRepository(context);
         cartItemRepository = new CartItemRepository(context);
         cartRepository = new CartRepository(context);
-        double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10+ shipPrice;
-        ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1 ,"$"+cart.getTotalPrice()/10);
+        double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10;
+        ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1,"$"+cart.getTotalPrice()/10);
         return new CartAdapter.ViewHolder(inflate);
     }
 
@@ -85,7 +83,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                     cartItems.remove(adapterPosition);
                     cart.setTotalPrice(cart.getTotalPrice() - product.getPrice());
                     cartRepository.update(cart);
-                    double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10+ shipPrice;
+                    double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10;
                     ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1,"$"+cart.getTotalPrice()/10);
                     notifyDataSetChanged();
                     return;
@@ -95,7 +93,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 cart.setTotalPrice(cart.getTotalPrice() - product.getPrice());
                 cartItemRepository.update(cartItem);
                 cartRepository.update(cart);
-                double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10+ shipPrice;
+                double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10;
                 ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1,"$"+cart.getTotalPrice()/10);
                 notifyDataSetChanged();
             }
@@ -110,7 +108,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 cart.setTotalPrice(cart.getTotalPrice() + product.getPrice());
                 cartItemRepository.update(cartItem);
                 cartRepository.update(cart);
-                double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10+ shipPrice;
+                double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10;
                 ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1,"$"+cart.getTotalPrice()/10);
                 notifyDataSetChanged();
             }
@@ -123,8 +121,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 cartItemRepository.delete(cartItems.get(adapterPosition));
                 cartItems.remove(adapterPosition);
                 cartRepository.update(cart);
-                double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10 + shipPrice;
-                ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1 ,"$"+cart.getTotalPrice()/10);
+                double total1 = cart.getTotalPrice()+cart.getTotalPrice()/10;
+                ((CartActivity) context).update("$"+cart.getTotalPrice(),"$"+total1,"$"+cart.getTotalPrice()/10);
                 notifyDataSetChanged();
                 Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show();
             }

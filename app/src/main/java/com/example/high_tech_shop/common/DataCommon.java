@@ -24,6 +24,7 @@ public class DataCommon {
         insertProduct(context);
         insertCategory(context);
         insertUserAddress(context);
+        Toast.makeText(context, "Data initialized successfully", Toast.LENGTH_SHORT).show();
     }
     public static void removeData(Context context) {
         ProductRepository productRepository = new ProductRepository(context);
@@ -34,6 +35,7 @@ public class DataCommon {
         userRepository.deleteAll();
         categoryRepository.deleteAll();
         userAddressRepository.deleteAll();
+        Toast.makeText(context, "Data delete successfully", Toast.LENGTH_SHORT).show();
     }
 
     private static void insertUser(Context context){
@@ -46,6 +48,7 @@ public class DataCommon {
         UserRepository userRepository = new UserRepository(context);
         userRepository.insert(Arrays.asList(user_1, user_2, user_3, user_4, user_5));
     }
+
     private static void insertProduct(Context context) {
         Product product_1 = new Product(1, "Product 1", "Description 1",500,100, "pic1", true, 1);
         Product product_2 = new Product(2, "Product 2", "Description 2",500,100, "pic1", true, 1);
@@ -89,11 +92,11 @@ public class DataCommon {
     }
 
     private static void insertUserAddress(Context context){
-        UserAddress userAddress_1 = new UserAddress(1, 1, "Long An", "Huyện Tân Thạnh", "Huyện Tân Thạnh", "Thị Trấn Tân Thạnh",true);
+        UserAddress userAddress_1 = new UserAddress(1, 1, "Province 1", "Country 1", "12345", "City 1",true);
         UserAddress userAddress_2 = new UserAddress(2, 1, "Province 2", "Country 2", "12345", "City 2",false);
         UserAddress userAddress_3 = new UserAddress(3, 2, "Province 3", "Country 3", "12345", "City 3",true);
         UserAddress userAddress_4 = new UserAddress(4, 2, "Province 4", "Country 4", "12345", "City 4",false);
-        UserAddress userAddress_5 = new UserAddress(5, 3, "Long An", "Huyện Tân Thạnh", "Huyện Tân Thạnh", "Thị Trấn Tân Thạnh",true);
+        UserAddress userAddress_5 = new UserAddress(5, 3, "Province 5", "Country 5", "12345", "City 5",true);
         UserAddress userAddress_6 = new UserAddress(6, 3, "Province 6", "Country 6", "12345", "City 6",false);
         UserAddress userAddress_7 = new UserAddress(7, 4, "Province 7", "Country 7", "12345", "City 7",true);
         UserAddress userAddress_8 = new UserAddress(8, 4, "Province 8", "Country 8", "12345", "City 8",false);

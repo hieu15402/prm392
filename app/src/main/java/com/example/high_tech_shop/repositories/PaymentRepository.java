@@ -16,14 +16,4 @@ public class PaymentRepository {
     public void insertPayment(List<Payment> payments) {
         paymentDAO.insertPayment(payments);
     }
-    public List<Payment> getAllPayments() {
-        return paymentDAO.getAllPayments();
-    }
-
-    public void updatePayment(Payment payment) {
-         paymentDAO.updatePayment(payment);
-    }
-    public Payment getPaymentById(int id) {
-        return paymentDAO.getPayment(id);
-    }
 }

@@ -14,16 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.high_tech_shop.R;
 import com.example.high_tech_shop.entity.*;
-import com.example.high_tech_shop.repositories.UserRepository;
-import com.example.high_tech_shop.user.AddAddressActivity;
 
 import java.util.List;
 
 public class AddressDefaultAdapter extends RecyclerView.Adapter<AddressDefaultAdapter.ViewHolder> {
     Context context;
     UserAddress userAddress;
-    private UserRepository userRepository;
-
     public AddressDefaultAdapter(Context context, UserAddress userAddress) {
         this.context = context;
         this.userAddress = userAddress;
@@ -51,26 +47,6 @@ public class AddressDefaultAdapter extends RecyclerView.Adapter<AddressDefaultAd
                     + "," + userAddress.getWard());
         }
         holder.tvAddress_default.setText(userAddress.getAddress());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, AddAddressActivity.class);
-                userRepository = new UserRepository(context);
-                intent.putExtra("user", userRepository.findById(userAddress.getUserId()));
-                intent.putExtra("_addressUpdate", userAddress.getAddress());
-                intent.putExtra("isDefault", userAddress.isStatus());
-                intent.putExtra("addressId", userAddress.getId());
-                if (userAddress.getDistrict() == null && userAddress.getWard() == null) {
-                    intent.putExtra("addressUpdate", userAddress.getProvince());
-                } else if (userAddress.getDistrict() != null && userAddress.getWard() == null) {
-                    intent.putExtra("addressUpdate", userAddress.getProvince() + "," + userAddress.getDistrict());
-                } else if (userAddress.getDistrict() != null && userAddress.getWard() != null) {
-                    intent.putExtra("addressUpdate", userAddress.getProvince() + "," + userAddress.getDistrict() + "," + userAddress.getWard());
-                }
-
-                context.startActivity(intent);
-            }
-        });
     }
 
     @Override

@@ -14,7 +14,8 @@ public class UserAddress {
     private String address;
     private boolean status;
 
-    public UserAddress(int id, int userId, String province, String district, String address, String ward, boolean status) {
+
+    public UserAddress(int id, int userId, String province, String district, String address, String ward,boolean status) {
         this.id = id;
         this.userId = userId;
         this.province = province;

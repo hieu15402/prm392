@@ -13,8 +13,6 @@ public interface ProductDAO {
     void insert(List<Product> products);
     @Update
     void update(Product product);
-    @Update
-    void update(List<Product> products);
     @Delete
     void delete(Product product);
     @Query("DELETE FROM product")

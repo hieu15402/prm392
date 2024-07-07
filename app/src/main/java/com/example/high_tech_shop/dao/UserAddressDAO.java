@@ -11,16 +11,19 @@ public interface UserAddressDAO {
     List<UserAddress> getAllUserAddresses();
     @Query("DELETE FROM UserAddress")
     void deleteAll();
+
     @Query("SELECT * FROM UserAddress WHERE id = :id")
     UserAddress getUserAddressById(int id);
+
     @Insert
     void addUserAddress(UserAddress userAddress);
+
     @Insert
     void addUserAddress(List<UserAddress> userAddress);
+
     @Update
     void updateUserAddress(UserAddress userAddress);
-    @Update
-    void updateUserAddress(List<UserAddress> userAddressList);
+
     @Delete
     void deleteUserAddress(UserAddress userAddress);
     @Query("SELECT * FROM UserAddress WHERE userId = :userId AND status = 0")

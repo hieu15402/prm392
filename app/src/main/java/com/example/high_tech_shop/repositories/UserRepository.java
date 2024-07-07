@@ -1,7 +1,6 @@
 package com.example.high_tech_shop.repositories;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.example.high_tech_shop.dao.UserDAO;
 import com.example.high_tech_shop.entity.User;
@@ -20,14 +19,10 @@ public class UserRepository {
     public void deleteAll(){
         this.userDAO.deleteAll();
     }
-
     public void update(User user){
         this.userDAO.update(user);
     }
-    public User findByEmail(String email) {
+    public User findByEmail(String email){
         return this.userDAO.selectUserByEmail(email);
-    }
-    public User findById(int id){
-        return this.userDAO.findById(id);
     }
 }

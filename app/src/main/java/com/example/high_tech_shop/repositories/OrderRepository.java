@@ -10,22 +10,20 @@ import java.util.List;
 
 public class OrderRepository {
     private OrderDAO orderDAO;
+    
     public OrderRepository(Context context) {
         this.orderDAO = HighTechShopRoomDatabase.getInstance(context).orderDAO();
     }
+
     public void insert(List<Order> orders) {
         orderDAO.addOrder(orders);
     }
-    public List<Integer> getOrdersByUserId(int userId){
-        return orderDAO.getOrdersByUserId(userId);}
-        public List<Order> getAll() {
-            return orderDAO.getAllOrders();
-        }
-        public Order getOrderById(int id) {
-            return orderDAO.getOrderById(id);
-        }
 
-    public void updateOrder(Order order) {
-        orderDAO.updateOrder(order);
+    public List<Integer> getOrdersByUserId(int userId){
+        return orderDAO.getOrdersByUserId(userId);
+    }
+
+    public List<Order> getOrdersByStatus(String order_status) {
+        return orderDAO.getOrdersByStatus(order_status);
     }
 }

@@ -17,9 +17,6 @@ public class CartItemRepository {
     public void insert(List<CartItem> cartItem) {
         this.cartItemDAO.insertCartItem(cartItem);
     }
-    public void delete(List<CartItem> cartItem) {
-        this.cartItemDAO.deleteCartItem(cartItem);
-    }
     public void insert(CartItem cartItem) {
         this.cartItemDAO.insertCartItem(cartItem);
     }

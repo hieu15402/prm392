@@ -18,6 +18,7 @@ import com.example.high_tech_shop.entity.User;
 import com.example.high_tech_shop.repositories.CartItemRepository;
 import com.example.high_tech_shop.repositories.CartRepository;
 import com.example.high_tech_shop.room.HighTechShopRoomDatabase;
+import com.example.high_tech_shop.shipper.ShipperMainActivity;
 
 import java.io.Serializable;
 
@@ -59,6 +60,10 @@ public class UserLoginFormActivity extends AppCompatActivity{
                     else if(user.getRole() == Role.ADMIN){
                         Intent intent = new Intent(UserLoginFormActivity.this, AdminHomeActivity.class);
                         intent.putExtra("admin", (Serializable) user);
+                        startActivity(intent);
+                    } else if(user.getRole() == Role.SHIPPER){
+                        Intent intent = new Intent(UserLoginFormActivity.this, ShipperMainActivity.class);
+                        intent.putExtra("user", (Serializable) user);
                         startActivity(intent);
                     }
                 }

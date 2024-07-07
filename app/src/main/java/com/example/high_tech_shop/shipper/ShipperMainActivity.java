@@ -80,4 +80,16 @@ public class ShipperMainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void fetchOrders() {
+        orders = orderRepository.getOrdersByStatus("Processing");
+    }
+
+    public void refreshOrders() {
+        fetchOrders();
+        ShipperHomeFragment fragment = (ShipperHomeFragment) getSupportFragmentManager().findFragmentById(R.id.frameLayouts);
+        if (fragment != null) {
+            fragment.updateOrderList(orders);
+        }
+    }
 }

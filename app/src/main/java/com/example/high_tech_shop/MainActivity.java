@@ -46,6 +46,6 @@ public class MainActivity extends AppCompatActivity {
                  .build();
 
 //       Chạy lần đầu thì mở nó ra
-//       DataCommon.initData(this);
+       DataCommon.initData(this);
      }
 }

@@ -1,8 +1,10 @@
 package com.example.high_tech_shop.user;
 
+
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static java.lang.Math.round;
+
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -22,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -34,6 +37,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.high_tech_shop.R;
 import com.example.high_tech_shop.adapter.CartAdapter;
@@ -55,8 +59,10 @@ import com.example.high_tech_shop.repositories.ProductRepository;
 import com.example.high_tech_shop.repositories.UserAddressRepository;
 import com.google.android.gms.maps.model.LatLng;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,7 +72,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
 import vn.momo.momo_partner.AppMoMoLib;
+
 
 public class CartActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -92,6 +100,7 @@ public class CartActivity extends AppCompatActivity {
     private double shipPrice = 0;
     private int paymentId = 0;
 
+
     //Momo
     private String amount = "10000";
     private String fee = "0";
@@ -114,12 +123,15 @@ public class CartActivity extends AppCompatActivity {
             return insets;
         });
 
+
         deliveryTxt = findViewById(R.id.tvShip);
+
 
         orderRepository = new OrderRepository(this);
         orderItemRepository = new OrderItemRepository(this);
         paymentRepository = new PaymentRepository(this);
         productRepository = new ProductRepository(this);
+
 
         user = (User) getIntent().getSerializableExtra("user");
         if(user == null) finish();
@@ -160,6 +172,7 @@ public class CartActivity extends AppCompatActivity {
             taxTxt.setText("$0");
         }
 
+
         ivViewAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,8 +206,10 @@ public class CartActivity extends AppCompatActivity {
                     }
                 }
 
+
             }
         });
+
 
         //-----------MOMO----------------
     }
@@ -206,6 +221,7 @@ public class CartActivity extends AppCompatActivity {
     private void showPaymentOptions() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Chọn phương thức thanh toán");
+
 
         String[] options = {"COD", "Momo"};
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -224,13 +240,16 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
+
     private void handleCODOption() {
         tvPaymentType.setText("COD");
     }
+
 
     private void handleMomoOption() {
         tvPaymentType.setText("Momo");
@@ -322,6 +341,7 @@ public class CartActivity extends AppCompatActivity {
     private class LatLng {
         double latitude;
         double longitude;
+
 
         LatLng(double latitude, double longitude) {
             this.latitude = latitude;
@@ -450,6 +470,7 @@ public class CartActivity extends AppCompatActivity {
         if (totalTxt.getText().toString() != null && totalTxt.getText().toString().trim().length() != 0)
             amount = totalTxt.getText().toString().replace("$", "");
 
+
         Map<String, Object> eventValue = new HashMap<>();
         //client Required
         eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
@@ -461,6 +482,7 @@ public class CartActivity extends AppCompatActivity {
         eventValue.put("merchantnamelabel", "Dịch vụ");//gán nhãn
         eventValue.put("fee", fee); //Kiểu integer
         eventValue.put("description", description); //mô tả đơn hàng - short description
+
 
         //client extra data
         eventValue.put("requestId",  merchantCode+"merchant_billId_"+System.currentTimeMillis());
@@ -478,6 +500,7 @@ public class CartActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         eventValue.put("extraData", objExtraData.toString());
+
 
         eventValue.put("extra", "");
         AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
@@ -530,6 +553,7 @@ public class CartActivity extends AppCompatActivity {
     }
     private void sendMessage(String message) {
 
+
         String channelId = "your_channel_id";
         CharSequence channelName = "Channel Name";
         String channelDescription = "Channel Description";
@@ -539,7 +563,9 @@ public class CartActivity extends AppCompatActivity {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
 
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
 
         Notification notification = new Notification.Builder(this, "your_channel_id")
                 .setContentTitle("Notification")
@@ -549,20 +575,25 @@ public class CartActivity extends AppCompatActivity {
                 .setColor(ContextCompat.getColor(this, R.color.red))
                 .build();
 
+
         NotificationManagerCompat compat = NotificationManagerCompat.from(this);
         if (ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED) {
             return;
         }
         compat.notify(getNotificationId(), notification);
 
+
     }
+
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         NotificationPermissionHelper.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
+
     private int getNotificationId() {
         return (int) new Date().getTime();
     }
 }
+

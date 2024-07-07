@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.example.high_tech_shop.R;
 import com.example.high_tech_shop.entity.Order;
+import com.example.high_tech_shop.entity.OrderItem;
+import com.example.high_tech_shop.entity.Product;
 import com.example.high_tech_shop.repositories.OrderItemRepository;
 import com.example.high_tech_shop.repositories.ProductRepository;
 
@@ -69,10 +71,12 @@ public class OrderBaseAdapter extends BaseAdapter {
         }
 
         Order order = orderList.get(position);
+        OrderItem orderItem = orderItemRepository.getOrderItemByOrderId(order.getId());
+        Product product = productRepository.getProductById(orderItem.getProductId());
 
         // Tạm thời sử dụng dữ liệu tĩnh để kiểm tra hiển thị
         holder.tvOrderId.setText("ID: " + order.getId());
-        holder.tvProductName.setText("Sản phẩm mẫu"); // Dữ liệu tĩnh cho tên sản phẩm
+        holder.tvProductName.setText(product.getName()); // Dữ liệu tĩnh cho tên sản phẩm
         holder.tvOrderDate.setText("01/01/2024"); // Dữ liệu tĩnh cho ngày đặt hàng
         holder.tvOrderStatus.setText("Pending"); // Dữ liệu tĩnh cho trạng thái đơn hàng
         holder.tvCustomerName.setText("Nguyễn Văn A"); // Dữ liệu tĩnh cho tên khách hàng

@@ -16,6 +16,7 @@ import com.example.high_tech_shop.entity.Order;
 import com.example.high_tech_shop.entity.OrderItem;
 import com.example.high_tech_shop.entity.Product;
 import com.example.high_tech_shop.repositories.OrderItemRepository;
+import com.example.high_tech_shop.repositories.OrderRepository;
 import com.example.high_tech_shop.repositories.ProductRepository;
 
 import java.util.List;
@@ -26,13 +27,14 @@ public class OrderBaseAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private OrderItemRepository orderItemRepository;
     private ProductRepository productRepository;
-
-    public OrderBaseAdapter(Context context, List<Order> orderList, OrderItemRepository orderItemRepository, ProductRepository productRepository) {
+    private OrderRepository orderRepository;
+    public OrderBaseAdapter(Context context, List<Order> orderList, OrderItemRepository orderItemRepository, ProductRepository productRepository, OrderRepository orderRepository) {
         this.context = context;
         this.orderList = orderList;
         this.inflater = LayoutInflater.from(context);
         this.orderItemRepository = orderItemRepository;
         this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -78,10 +80,10 @@ public class OrderBaseAdapter extends BaseAdapter {
         // Tạm thời sử dụng dữ liệu tĩnh để kiểm tra hiển thị
         holder.tvOrderId.setText("ID: " + order.getId());
         holder.tvProductName.setText(product.getName()); // Dữ liệu tĩnh cho tên sản phẩm
-        holder.tvOrderDate.setText("01/01/2024"); // Dữ liệu tĩnh cho ngày đặt hàng
-        holder.tvOrderStatus.setText("Pending"); // Dữ liệu tĩnh cho trạng thái đơn hàng
-        holder.tvCustomerName.setText("Nguyễn Văn A"); // Dữ liệu tĩnh cho tên khách hàng
-        holder.tvOrderPrice.setText("$100.00"); // Dữ liệu tĩnh cho giá đơn hàng
+        holder.tvOrderDate.setText(order.getDistrict()); // Dữ liệu tĩnh cho ngày đặt hàng
+        holder.tvOrderStatus.setText(order.getStatus()); // Dữ liệu tĩnh cho trạng thái đơn hàng
+        holder.tvCustomerName.setText(order.getNameCustomer()); // Dữ liệu tĩnh cho tên khách hàng
+        holder.tvOrderPrice.setText(String.valueOf(orderItem.getPrice()));  // Dữ liệu tĩnh cho giá đơn hàng
 
         // Xử lý sự kiện nhấn nút mở rộng
         holder.btnExpand.setOnClickListener(v -> {
@@ -97,6 +99,8 @@ public class OrderBaseAdapter extends BaseAdapter {
         // Xử lý sự kiện nhấn nút "Mark as shipped"
         holder.btnMarkAsShipped.setOnClickListener(v -> {
             // Cập nhật trạng thái đơn hàng và các hành động khác nếu cần
+            order.setStatus("Delivered");
+            orderRepository.updateOrder(order);
         });
 
         return convertView;

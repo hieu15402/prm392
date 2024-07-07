@@ -24,4 +24,6 @@ public interface OrderItemDAO {
 
     @Query("SELECT * FROM OrderItem WHERE orderId = :orderId")
     OrderItem getOrderItemByOrderId(Integer orderId);
+
+
 }

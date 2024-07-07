@@ -69,7 +69,7 @@ public class ShipperHomeFragment extends Fragment {
 
         // Setup ListView
         ListView listView = view.findViewById(R.id.list_view_orders);
-        OrderBaseAdapter adapter = new OrderBaseAdapter(getContext(), orders, orderItemRepository, productRepository);
+        OrderBaseAdapter adapter = new OrderBaseAdapter(getContext(), orders, orderItemRepository, productRepository,orderRepository);
         listView.setAdapter(adapter);
 
         return view;

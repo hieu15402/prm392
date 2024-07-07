@@ -1,6 +1,7 @@
 package com.example.high_tech_shop.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ public class OrderBaseAdapter extends BaseAdapter {
         Order order = orderList.get(position);
         OrderItem orderItem = orderItemRepository.getOrderItemByOrderId(order.getId());
         Product product = productRepository.getProductById(orderItem.getProductId());
-
+        Log.d("orderTest", order.toString());
         // Tạm thời sử dụng dữ liệu tĩnh để kiểm tra hiển thị
         holder.tvOrderId.setText("ID: " + order.getId());
         holder.tvProductName.setText(product.getName()); // Dữ liệu tĩnh cho tên sản phẩm

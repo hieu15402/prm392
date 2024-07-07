@@ -21,6 +21,6 @@ public interface OrderDAO {
     public void deleteOrder(Order order);
     @Query("SELECT id FROM `Order` WHERE userId = :userId")
     List<Integer> getOrdersByUserId(int userId);
-    @Query("SELECT * FROM `Order` WHERE userId = :status")
+    @Query("SELECT * FROM `Order` WHERE status like :status")
     List<Order> getOrdersByStatus(String status);
 }

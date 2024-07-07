@@ -2,6 +2,7 @@ package com.example.high_tech_shop.shipper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -43,7 +44,7 @@ public class ShipperMainActivity extends AppCompatActivity {
 
 
         orders = orderRepository.getOrdersByStatus("Processing");
-
+        Log.d("TAG", orders.toString());
         // Creating 5 orders
 //        orderList.add(new Order(1, 200.0, "Pending", "Minh", "123456789", "Hanoi", "Ba Dinh", "123 Street", "minh@example.com", "Please deliver fast", 1, 1));
 //        orderList.add(new Order(2, 150.0, "Shipped", "Nam", "987654321", "Hanoi", "Hoan Kiem", "456 Street", "nam@example.com", "Leave at door", 2, 2));

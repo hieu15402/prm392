@@ -22,4 +22,15 @@ public class CategoryRepository {
     public Category findById(int id){
         return  categoryDAO.findById(id);
     }
+    public void delete(Category category) {
+        categoryDAO.delete(category);
+    }
+    public void update(Category category) {
+        categoryDAO.update(category);
+    }
+
+    public List<Category> findAll() {
+        return categoryDAO.findAll();
+    }
+
 }

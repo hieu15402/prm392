@@ -44,8 +44,16 @@ public class ShipperProfileFragment extends Fragment {
 
         // Set the user's full name to the TextView
         TextView tvFullName = view.findViewById(R.id.tv_full_name);
+        TextView tvEmail = view.findViewById(R.id.tv_email);
+        TextView tvPhone = view.findViewById(R.id.tv_phone);
+        TextView tvAddress = view.findViewById(R.id.tv_address);
+
         if (user != null) {
             tvFullName.setText(user.getFullName());
+            tvEmail.setText(user.getEmail());
+            tvPhone.setText(user.getPhone());
+            // Assuming the User class has an address field. If not, adjust accordingly.
+            tvAddress.setText(""); // Replace with actual address field from User class
         }
 
         return view;

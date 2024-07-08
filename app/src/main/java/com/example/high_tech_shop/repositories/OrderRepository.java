@@ -6,6 +6,7 @@ import com.example.high_tech_shop.dao.OrderDAO;
 import com.example.high_tech_shop.entity.Order;
 import com.example.high_tech_shop.room.HighTechShopRoomDatabase;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OrderRepository {
@@ -31,5 +32,8 @@ public class OrderRepository {
 
     public List<Order> getOrdersByStatus(String status) {
         return orderDAO.getOrdersByStatus(status);
+    }
+    public List<Order> getOrdersByStatuses(List<String> statuses) {
+        return orderDAO.getOrdersByStatuses(statuses);
     }
 }

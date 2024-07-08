@@ -23,6 +23,7 @@ public interface OrderDAO {
     List<Integer> getOrdersByUserId(int userId);
     @Query("SELECT * FROM `Order` WHERE status like :status")
     List<Order> getOrdersByStatus(String status);
-
+    @Query("SELECT * FROM `Order` WHERE status IN (:statuses)")
+    List<Order> getOrdersByStatuses(List<String> statuses);
 
 }

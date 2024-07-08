@@ -122,7 +122,7 @@
             android:exported="true" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBdVynA4ikE3mLBYe6JzEJohPZ_5Iy-aXI"/>
+            android:value="AIzaSyA0XFvtu7u8R2eQRufGprVvf9sMEvhHi_w"/>
 
     </application>
 

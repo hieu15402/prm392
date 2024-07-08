@@ -56,6 +56,15 @@ public class ShipperHomeFragment extends Fragment {
         productRepository = new ProductRepository(getContext());
     }
 
+    public void onResume() {
+        super.onResume();
+        // Refresh the order list when the fragment is resumed
+        if (getActivity() instanceof ShipperMainActivity) {
+            ((ShipperMainActivity) getActivity()).fetchOrders();
+
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,7 +86,12 @@ public class ShipperHomeFragment extends Fragment {
     }
 
     public void updateOrderList(List<Order> updatedOrders) {
-        this.orders = updatedOrders;
-        adapter.updateOrderList(updatedOrders);
+        this.orders = new ArrayList<>();
+        for (Order order : updatedOrders) {
+            if (order.getStatus().equals("Processing") || order.getStatus().equals("Delivered")) {
+                this.orders.add(order);
+            }
+        }
+        adapter.updateOrderList(this.orders);
     }
 }

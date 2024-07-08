@@ -22,4 +22,7 @@ public interface CategoryDAO {
     void update(Category category);
     @Delete
     void save(Category category);
+
+    @Delete
+    void delete(Category category);
 }

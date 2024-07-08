@@ -1,5 +1,6 @@
 package com.example.high_tech_shop.admin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -26,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.high_tech_shop.R;
-import com.example.high_tech_shop.adapter.ProductAdapter;
+import com.example.high_tech_shop.adapter.ProductAdAdapter;
 import com.example.high_tech_shop.dao.ProductDAO;
 import com.example.high_tech_shop.entity.Product;
 import com.example.high_tech_shop.room.HighTechShopRoomDatabase;
@@ -43,7 +45,7 @@ public class ProductManageActivity extends AppCompatActivity {
     private Button btnSave, btnCancel, btnSelectImage, btnAddProduct, btnPreviousPage, btnNextPage;
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private ProductAdapter productAdapter;
+    private ProductAdAdapter productAdapter;
     private List<Product> productList = new ArrayList<>();
     private ProductDAO productDAO;
     private Product selectedProduct;
@@ -75,7 +77,7 @@ public class ProductManageActivity extends AppCompatActivity {
         productDAO = HighTechShopRoomDatabase.getInstance(this).productDAO();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productAdapter = new ProductAdapter(productList, this, null);
+        productAdapter = new ProductAdAdapter(productList, this, null);
         recyclerView.setAdapter(productAdapter);
 
         loadProducts(currentPage);
@@ -142,7 +144,7 @@ public class ProductManageActivity extends AppCompatActivity {
             }
         });
 
-        productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+        productAdapter.setOnItemClickListener(new ProductAdAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
                 selectedProduct = product;
@@ -150,6 +152,34 @@ public class ProductManageActivity extends AppCompatActivity {
                 toggleAddProductView(true); // Show fields for update/delete
             }
         });
+
+        //delete
+        productAdapter.setOnItemLongClickListener(new ProductAdAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(Product product) {
+                showDeleteConfirmationDialog(product);
+            }
+        });
+    }
+
+    private void showDeleteConfirmationDialog(Product product) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Product")
+                .setMessage("Are you sure you want to delete this product?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct(product);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void deleteProduct(Product product) {
+        productDAO.delete(product);
+        Toast.makeText(this, "Product deleted", Toast.LENGTH_SHORT).show();
+        loadProducts(currentPage);
     }
 
     private void toggleAddProductView(boolean show) {

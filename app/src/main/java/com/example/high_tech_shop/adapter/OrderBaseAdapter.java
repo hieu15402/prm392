@@ -20,6 +20,7 @@ import com.example.high_tech_shop.repositories.OrderRepository;
 import com.example.high_tech_shop.repositories.ProductRepository;
 import com.example.high_tech_shop.shipper.ShipperHomeFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBaseAdapter extends BaseAdapter {
@@ -99,11 +100,29 @@ public class OrderBaseAdapter extends BaseAdapter {
             }
         });
 
-        holder.btnMarkAsShipped.setOnClickListener(v -> {
-            order.setStatus("Delivered");
-            orderRepository.updateOrder(order);
-            fragment.updateOrderList(orderRepository.getOrdersByStatus("Processing"));
-        });
+        if (order.getStatus().equals("Delivered")) {
+            holder.btnMarkAsShipped.setText("Complete Order");
+            holder.btnMarkAsShipped.setOnClickListener(v -> {
+                order.setStatus("Completed");
+                orderRepository.updateOrder(order);
+                List<String> items = new ArrayList<>();
+                items.add("Delivered");
+                items.add("Processing");
+                fragment.updateOrderList(orderRepository.getOrdersByStatuses(items));
+                notifyDataSetChanged();
+            });
+        } else {
+            holder.btnMarkAsShipped.setText("Mark as Delivered");
+            holder.btnMarkAsShipped.setOnClickListener(v -> {
+                order.setStatus("Delivered");
+                orderRepository.updateOrder(order);
+                List<String> items = new ArrayList<>();
+                items.add("Delivered");
+                items.add("Processing");
+                fragment.updateOrderList(orderRepository.getOrdersByStatuses(items));
+                notifyDataSetChanged();
+            });
+        }
 
         return convertView;
     }

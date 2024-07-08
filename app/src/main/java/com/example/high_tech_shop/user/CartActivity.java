@@ -80,7 +80,7 @@ public class CartActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private LatLng locationShop;
     private LatLng locationUser;
-    private static final String API_KEY = "AIzaSyBdVynA4ikE3mLBYe6JzEJohPZ_5Iy-aXI";
+    private static final String API_KEY = "AIzaSyA0XFvtu7u8R2eQRufGprVvf9sMEvhHi_w";
     private User user;
     private RecyclerView.Adapter adapter;
     private TextView subTotalTxt, deliveryTxt, taxTxt, totalTxt,tvAddress,tvPaymentType;

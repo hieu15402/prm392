@@ -2,6 +2,7 @@ package com.example.high_tech_shop.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -19,14 +20,15 @@ import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.example.high_tech_shop.R;
 import com.example.high_tech_shop.entity.Product;
 import com.example.high_tech_shop.entity.User;
+import com.example.high_tech_shop.user.ProductDetailActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private List<Product> products;
     private Context context;
     private User user;
-    private OnItemClickListener onItemClickListener;
 
     public ProductAdapter(List<Product> products, Context context, User user) {
         this.products = products;
@@ -34,13 +36,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.user = user;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Product product);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
 
     @NonNull
     @Override
@@ -53,31 +48,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product product = products.get(position);
-        holder.titleTxt.setText(product.getName());
-        holder.feeTxt.setText("$" + product.getPrice());
-        holder.unitInStockTxt.setText("Unit in Stock: " + product.getUnitInStock());
-
-        String coverImageBase64 = product.getCoverImage();
-        if (coverImageBase64 != null && !coverImageBase64.isEmpty()) {
-            Bitmap bitmap = convertStringToBitmap(coverImageBase64);
-            if (bitmap != null) {
-                Glide.with(context)
-                        .load(bitmap)
-                        .error(R.drawable.ic_plus_sign)
-                        .transform(new GranularRoundedCorners(30, 30, 0, 0))
-                        .into(holder.pic);
-            } else {
-                holder.pic.setImageResource(R.drawable.ic_plus_sign);
-            }
-        } else {
-            holder.pic.setImageResource(R.drawable.ic_plus_sign);
-        }
+        holder.titleTxt.setText(products.get(position).getName());
+        holder.feeTxt.setText("$"+products.get(position).getPrice());
+        int drawableResourceId = holder.itemView.getResources().getIdentifier(products.get(position).getCoverImage()
+                ,"drawable",holder.itemView.getContext().getPackageName());
+        Glide.with(context)
+                //.load(products.get(position).getCoverImage())
+                .load(drawableResourceId)
+                //.placeholder(drawableResourceId)
+                .error(R.drawable.ic_launcher_background)
+                .transform(new GranularRoundedCorners(30,30,0,0))
+                .into(holder.pic);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(product);
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    Intent intent = new Intent(holder.itemView.getContext(), ProductDetailActivity.class);
+                    intent.putExtra("product", (Serializable) products.get(adapterPosition));
+                    intent.putExtra("user", (Serializable) user);
+                    holder.itemView.getContext().startActivity(intent);
                 }
             }
         });
@@ -98,16 +89,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             feeTxt = itemView.findViewById(R.id.textView31);
             unitInStockTxt = itemView.findViewById(R.id.unitInStockTxt);
             pic = itemView.findViewById(R.id.pic);
-        }
-    }
-
-    private Bitmap convertStringToBitmap(String str) {
-        try {
-            byte[] byteArray = Base64.decode(str, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }

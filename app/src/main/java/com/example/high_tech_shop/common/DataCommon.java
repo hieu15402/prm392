@@ -38,8 +38,8 @@ public class DataCommon {
 
     private static void insertUser(Context context){
         User user_1 = new User(1, "admin@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "admin", Role.ADMIN);
-        User user_2 = new User(2, "shipper@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "shipper", Role.SHIPPER);
-        User user_3 = new User(3, "user1@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "user1", Role.USER);
+        User user_2 = new User(2, "shipper@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "Hiếu shipper", Role.SHIPPER);
+        User user_3 = new User(3, "user1@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "Trần Quang Minh", Role.USER);
         User user_4 = new User(4, "user2@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "user2", Role.USER);
         User user_5 = new User(5, "user3@gmail.com", "1234567890", "image.png", "10/04/2002", true, "12345", "user3", Role.USER);
 
@@ -47,27 +47,27 @@ public class DataCommon {
         userRepository.insert(Arrays.asList(user_1, user_2, user_3, user_4, user_5));
     }
     private static void insertProduct(Context context) {
-        Product product_1 = new Product(1, "Product 1", "Description 1",500,100, "pic1", true, 1);
-        Product product_2 = new Product(2, "Product 2", "Description 2",500,100, "pic1", true, 1);
-        Product product_3 = new Product(3, "Product 3", "Description 3",500,100, "pic1", true, 1);
-        Product product_4 = new Product(4, "Product 4", "Description 4",500,100, "pic1", true, 1);
-        Product product_5 = new Product(5, "Product 5", "Description 5",500,100, "pic1", true, 1);
-        Product product_6 = new Product(6, "Product 6", "Description 6",500,100, "pic2", true, 2);
-        Product product_7 = new Product(7, "Product 7", "Description 7",500,100, "pic2", true, 2);
-        Product product_8 = new Product(8, "Product 8", "Description 8",500,100, "pic2", true, 2);
-        Product product_9 = new Product(9, "Product 9", "Description 9",500,100, "pic2", true, 2);
-        Product product_10 = new Product(10, "Product 10", "Description 10",500,100, "pic2", true, 2);
+        Product product_1 = new Product(1, "Samsung Galaxy S21 Ultra", "Description 1",500,100, "pic1", true, 2);
+        Product product_2 = new Product(2, "Iphone 13 Pro Max", "Description 2",500,100, "pic1", true, 2);
+        Product product_3 = new Product(3, "Oppo Reno", "Description 3",500,100, "pic1", true, 2);
+        Product product_4 = new Product(4, "Vivo Y11", "Description 4",500,100, "pic1", true, 2);
+        Product product_5 = new Product(5, "MSI GF63 Thin", "Description 5",500,100, "pic1", true, 1);
+        Product product_6 = new Product(6, "Macbook Pro", "Description 6",500,100, "pic2", true, 1);
+        Product product_7 = new Product(7, "Asus Vivobook", "Description 7",500,100, "pic2", true, 1);
+        Product product_8 = new Product(8, "Lenovo Thinkpad", "Description 8",500,100, "pic2", true, 1);
+        Product product_9 = new Product(9, "SamSung Z Flip 5", "Description 9",500,100, "pic2", true, 2);
+        Product product_10 = new Product(10, "Sony PS5", "Description 10",500,100, "pic2", true, 3);
 
-        Product product_11 = new Product(11, "Product 11", "Description 11",500,100, "pic3", true, 3);
-        Product product_12 = new Product(12, "Product 12", "Description 12",500,100, "pic3", true, 3);
-        Product product_13 = new Product(13, "Product 13", "Description 13",500,100, "pic3", true, 3);
-        Product product_14 = new Product(14, "Product 14", "Description 14",500,100, "pic3", true, 3);
-        Product product_15 = new Product(15, "Product 15", "Description 15",500,100, "pic3", true, 3);
-        Product product_16 = new Product(16, "Product 16", "Description 16",500,100, "pic1", true, 4);
-        Product product_17 = new Product(17, "Product 17", "Description 17",500,100, "pic2", true, 4);
-        Product product_18 = new Product(18, "Product 18", "Description 18",500,100, "pic3", true, 4);
-        Product product_19 = new Product(19, "Product 19", "Description 19",500,100, "pic2", true, 4);
-        Product product_20 = new Product(20, "Product 20", "Description 20",500,100, "pic3", true, 4);
+        Product product_11 = new Product(11, "PS5 Controller", "Description 11",500,100, "pic3", true, 3);
+        Product product_12 = new Product(12, "Samsung Z Fold 3", "Description 12",500,100, "pic3", true, 2);
+        Product product_13 = new Product(13, "MSI Gaming Laptop", "Description 13",500,100, "pic3", true, 1);
+        Product product_14 = new Product(14, "Iphone 13 Pro", "Description 14",500,100, "pic3", true, 2);
+        Product product_15 = new Product(15, "Vivo V20", "Description 15",500,100, "pic3", true, 2);
+        Product product_16 = new Product(16, "Oppo A92", "Description 16",500,100, "pic1", true, 2);
+        Product product_17 = new Product(17, "Gaming Logitech G335 Black", "Description 17",500,100, "pic2", true, 4);
+        Product product_18 = new Product(18, "Razer Hammerhead True Wireless HyperSpeed", "Description 18",500,100, "pic3", true, 4);
+        Product product_19 = new Product(19, "Logitech Zone 300 Đen", "Description 19",500,100, "pic2", true, 4);
+        Product product_20 = new Product(20, "Samsung Galaxy Watch 4", "Description 20",500,100, "pic3", true, 2);
 
         ProductRepository productRepository = new ProductRepository(context);
         productRepository.insert(Arrays.asList(
@@ -79,10 +79,10 @@ public class DataCommon {
     }
 
     private static void insertCategory(Context context){
-        Category category_1 = new Category(1, "Category 1");
-        Category category_2 = new Category(2, "Category 2");
-        Category category_3 = new Category(3, "Category 3");
-        Category category_4 = new Category(4, "Category 4");
+        Category category_1 = new Category(1, "Laptop");
+        Category category_2 = new Category(2, "Smartphone");
+        Category category_3 = new Category(3, "Playstation");
+        Category category_4 = new Category(4, "Headphone");
 
         CategoryRepository categoryRepository = new CategoryRepository(context);
         categoryRepository.insert(Arrays.asList(category_1, category_2, category_3, category_4));
